@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string", "description": "User's display name" },
+        "photoURL": { "type": "string", "description": "URL to user's profile picture" },
+        "bio": { "type": "string", "description": "User's short biography" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the user account was created" }
+      },
+      "required": ["displayName", "createdAt"]
+    },
+    "App": {
+      "title": "App",
+      "description": "A vibe-coded app or idea",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the app" },
+        "description": { "type": "string", "description": "Detailed description of the app" },
+        "authorId": { "type": "string", "description": "UID of the creator" },
+        "authorName": { "type": "string", "description": "Name of the creator (denormalized)" },
+        "authorPhoto": { "type": "string", "description": "Photo of the creator (denormalized)" },
+        "appUrl": { "type": "string", "description": "Link to the live app" },
+        "imageUrl": { "type": "string", "description": "Thumbnail image for the app" },
+        "tags": { "type": "array", "items": { "type": "string" }, "description": "List of tags/categories" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the app was posted" },
+        "likesCount": { "type": "integer", "description": "Total number of likes" }
+      },
+      "required": ["name", "description", "authorId", "createdAt"]
+    },
+    "Like": {
+      "title": "Like",
+      "description": "A like on an app",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "UID of the user who liked" },
+        "appId": { "type": "string", "description": "ID of the app liked" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the like occurred" }
+      },
+      "required": ["userId", "appId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "User", "description": "User profiles" },
+    "/apps/{appId}": { "schema": "App", "description": "Vibe-coded apps" },
+    "/likes/{likeId}": { "schema": "Like", "description": "App likes" }
+  }
+}
